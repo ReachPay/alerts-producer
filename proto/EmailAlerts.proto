@@ -1,0 +1,60 @@
+
+syntax = "proto3";
+package alerts_service;
+import "google/protobuf/empty.proto";
+
+message SendMerchantExchangeAlertRequest {
+    string MerchantId = 1;
+    double Amount=2;
+    string CurrencyFrom=3;
+    string CurrencyTo=4;
+}
+
+message SendMerchantDepositReceivedAlertRequest {
+    string MerchantId = 1;
+    double Amount=2;
+    string Currency=3;
+}
+
+message SendMerchantOrderExecuteAlertRequest{
+    string MerchantId = 1;
+    double Amount = 2;
+    string Currency = 3;
+    string OrderId = 4;
+}
+
+
+message SendMerchantWithdrawalCreateAlertRequest{
+    string MerchantId = 1;
+    double Amount = 2;
+    string Currency = 3;
+    string WithdrawalId = 4;
+}
+
+message SendMerchantWithdrawalStatusUpdateAlertRequest{
+    string MerchantId = 1;
+    string Status = 2;
+    string WithdrawalId = 3;
+}
+
+message SendMerchantSettingsUpdateAlertRequest{
+    string MerchantId = 1;
+}
+
+message SendCreateMerchantNewDepositAddressAlertRequest{
+    string MerchantId = 1;
+    string Id = 2;
+    string Currency = 3;
+    string Network = 4;
+    string Tag = 5;
+}
+
+service AlertsService {
+    rpc SendMerchantExchangeAlert(alerts_service.SendMerchantExchangeAlertRequest) returns (google.protobuf.Empty);
+    rpc SendMerchantDepositReceivedAlert(alerts_service.SendMerchantDepositReceivedAlertRequest) returns (google.protobuf.Empty);
+    rpc SendMerchantOrderExecuteAlert(alerts_service.SendMerchantOrderExecuteAlertRequest) returns (google.protobuf.Empty);
+    rpc SendMerchantWithdrawalCreateAlert(alerts_service.SendMerchantWithdrawalCreateAlertRequest) returns (google.protobuf.Empty);
+    rpc SendMerchantWithdrawalStatusUpdateAlert(alerts_service.SendMerchantWithdrawalStatusUpdateAlertRequest) returns (google.protobuf.Empty);
+    rpc SendMerchantNewDepositAddressCreateAlert(alerts_service.SendCreateMerchantNewDepositAddressAlertRequest) returns (google.protobuf.Empty);
+    rpc SendMerchantSettingsUpdateAlert(alerts_service.SendMerchantSettingsUpdateAlertRequest) returns (google.protobuf.Empty);
+}

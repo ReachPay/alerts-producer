@@ -1,0 +1,131 @@
+
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package merchantflows;
+
+message MerchantFlowsResolveMerchantRequest {
+    string ApiKey = 1;
+}
+
+message MerchantFlowsResolveMerchantResponse{
+    optional string MerchantId = 1;
+}
+
+message MerchantFlowsAddMerchantRequest {
+    string Id = 1;
+    string ApiKey = 2;
+}
+
+message MerchantFlowsEnableDisableRequest {
+    string Id = 1;
+    bool Enable = 2;
+}
+
+message MerchantFlowsUpdateApiKeyRequest {
+    string Id = 1;
+    string ApiKey = 2;
+}
+
+message MerchantFlowsIsMerchantRequest {
+    string ClientId = 1;
+}
+
+message MerchantFlowsIsMerchantResponse {
+    bool IsMerchant = 1;
+}
+
+message MerchantFlowsAddCallbackUrlRequest{
+    string ClientId = 1;
+    string CallbackUrl = 2;
+}
+
+message MerchantFlowsRemoveCallbackUrlRequest{
+    string ClientId = 1;
+    string CallbackUrl = 2;
+}
+
+message MerchantFlowsUpdateComissionSettingsRequest{
+    string ClientId = 1;
+    double ComissionPercent = 2;
+}
+
+message MerchantFlowsGetMerchantSettingsRequest{
+    string ClientId = 1;
+}
+
+message MerchantFlowsGetMerchantSettingsResponse{
+    merchantflows.MerchantFlowsMerchantSettingsModel Settings = 1;
+}
+
+message MerchantFlowsMerchantSettingsModel{
+    repeated string CallbackUrls = 1;
+    double ComissionPercent = 2;
+    string ApiKey = 3;
+}
+message MerchantFlowsGetCallbacksLogsRequest{
+    string ClientId = 1;
+    int64 From = 2;
+    int64 To = 3;
+}
+
+message MerchantFlowsCallbackLogModel{
+    int64 ExecuteDate = 1;
+    int64 CreateDate = 2;
+    int32 HttpStatusCode = 3;
+    string Message = 4;
+    string Url = 5;
+    optional string ClientId = 6;
+    optional string  OrderId = 7;
+    string MerchantId = 8;
+    string RequestBody = 9;
+    string ResponseBody = 10;
+    int32 Attempt = 11;
+}
+
+enum MerchantFlowsCallbackOverrideType{
+    FirstConfirm = 0;
+    FullConfirm = 1;
+}
+
+message MerchantFlowsMerchantOverrideModel{
+    string Currency = 1;
+    string Network = 2;
+    merchantflows.MerchantFlowsCallbackOverrideType OverrideType = 3;
+}
+
+message MerchantFlowsAddMerchantOverrideRequest{
+    string ClientId = 1;
+    merchantflows.MerchantFlowsMerchantOverrideModel MerchantOverride = 2;
+}
+
+message MerchantFlowsGetMerchantOverridesRequest{
+    string ClientId = 1;
+}
+
+
+message MerchantFlowsSetAllCallbackOverrideOverridesRequest{
+    string ClientId = 1;
+    merchantflows.MerchantFlowsCallbackOverrideType OverrideType = 2;
+}
+
+message MerchantFlowsSetBuld{
+    string ClientId = 1;
+}
+
+service MerchantFlowsService {
+    rpc Resolve(merchantflows.MerchantFlowsResolveMerchantRequest) returns (merchantflows.MerchantFlowsResolveMerchantResponse);
+    rpc Add(merchantflows.MerchantFlowsAddMerchantRequest) returns (google.protobuf.Empty);
+    rpc EnableDisable(merchantflows.MerchantFlowsEnableDisableRequest) returns (google.protobuf.Empty);
+    rpc UpdateApiKey(merchantflows.MerchantFlowsUpdateApiKeyRequest) returns (google.protobuf.Empty);
+    rpc IsMerchant(merchantflows.MerchantFlowsIsMerchantRequest) returns (merchantflows.MerchantFlowsIsMerchantResponse);
+    rpc AddCallbackUrl(merchantflows.MerchantFlowsAddCallbackUrlRequest) returns (google.protobuf.Empty);
+    rpc RemoveCallbackUrl(merchantflows.MerchantFlowsRemoveCallbackUrlRequest) returns (google.protobuf.Empty);
+    rpc UpdateComissionSettings(merchantflows.MerchantFlowsUpdateComissionSettingsRequest)  returns (google.protobuf.Empty);
+    rpc GetMerchantSettings(merchantflows.MerchantFlowsGetMerchantSettingsRequest) returns (merchantflows.MerchantFlowsGetMerchantSettingsResponse);
+    rpc GetMerchantCallbackLogs(merchantflows.MerchantFlowsGetCallbacksLogsRequest) returns (stream merchantflows.MerchantFlowsCallbackLogModel);
+    rpc AddMerchantCallbackOverride(merchantflows.MerchantFlowsAddMerchantOverrideRequest) returns (google.protobuf.Empty);
+    rpc GetMerchantCallbackOverrides(merchantflows.MerchantFlowsGetMerchantOverridesRequest) returns (stream merchantflows.MerchantFlowsMerchantOverrideModel);
+    rpc ResetDefaultCallbackSettings(merchantflows.MerchantFlowsGetMerchantOverridesRequest) returns (google.protobuf.Empty);
+    rpc SetAllCallbackOverride(merchantflows.MerchantFlowsSetAllCallbackOverrideOverridesRequest) returns (google.protobuf.Empty);
+}
+

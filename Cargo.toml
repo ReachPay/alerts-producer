@@ -1,0 +1,54 @@
+[package]
+name = "alerts-producer"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+http-is-alive-shared = { tag = "0.5.0", git = "https://github.com/MyJetTools/http-is-alive-shared.git" }
+my-logger = { tag = "0.2.0", git = "https://github.com/MyJetTools/my-logger.git" }
+
+my-seq-logger = { tag = "0.2.1", git = "https://github.com/MyJetTools/my-seq-logger.git" }
+my-grpc-extensions = { tag = "0.3.0", git = "https://github.com/MyJetTools/my-grpc-extensions.git" }
+rust-extensions = { tag = "0.1.2", git = "https://github.com/MyJetTools/rust-extensions.git" }
+
+my-settings-reader = { tag = "0.1.5", git = "https://github.com/MyJetTools/my-settings-reader.git", features = [
+    "background-reader",
+] }
+
+my-sb-contracts = { tag = "0.2.6", git = "https://github.com/ReachPay/my-sb-contracts.git", features = [
+    "crypto-deposit-operation",
+    "crypto-deposit-command",
+    "swap-operation",
+    "order-execution-operation",
+    "bid-ask",
+    "withdrawals",
+] }
+flurl = { tag = "0.2.3", git = "https://github.com/MyJetTools/fl-url.git" }
+
+my-telemetry = { tag = "0.3.0", git = "https://github.com/MyJetTools/my-telemetry.git" }
+my-telemetry-writer = { tag = "0.3.0", git = "https://github.com/MyJetTools/my-telemetry-writer.git" }
+
+my-service-bus-tcp-client = { tag = "0.2.1", git = "https://github.com/MyJetTools/my-service-bus-tcp-client.git" }
+my-service-bus-abstractions = { tag = "0.1.1", git = "https://github.com/MyJetTools/my-service-bus-abstractions.git", features = [
+    "with-telemetry",
+] }
+
+tonic = { version = "*", features = ["tls", "tls-roots", "prost"] }
+hyper = { version = "*", features = ["full"] }
+tokio = { version = "*", features = ["full"] }
+tokio-stream = "*"
+futures-core = "*"
+async-trait = "*"
+tokio-util = "*"
+prost = "*"
+prost-types = "*"
+serde = "*"
+serde_yaml = "*"
+serde_json = "*"
+
+anyhow = "*"
+
+[build-dependencies]
+tonic-build = { version = "*", features = ["prost"] }
